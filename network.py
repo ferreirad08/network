@@ -8,12 +8,14 @@ class Network:
 
     def __init__(self, remote_host: str) -> None:
         self.remote_host: str = remote_host
+        self.OS = platform.system()
 
     def ping(self, count: int=1) -> int:
         '''
         Mede a latência da conexão
         '''
-        return os.system(f'ping -c {count} {self.remote_host}')
+        if self.OS == 'Linux':
+            return os.system(f'ping -c {count} {self.remote_host}')
 
     def is_connected(self) -> bool:
         '''
@@ -25,6 +27,9 @@ class Network:
         '''
         Obtém a porta em que a conexão foi aberta
         '''
+        if self.OS != 'Linux':
+            return
+
         fname: str = 'tempfile.txt'
         os.system(f'nmap -oN {fname} -p {min}-{max} {self.remote_host}')
 
@@ -38,9 +43,7 @@ class Network:
 
 if __name__ == '__main__':
 
-    if platform.system() == 'Linux':
-
-        network = Network(remote_host='www.anaconda.com')
-        network.ping(count=4)
-        print('Network is connected:', network.is_connected())
-        print('Port:', network.get_port())
+    network = Network(remote_host='www.anaconda.com')
+    network.ping(count=4)
+    print('Network is connected:', network.is_connected())
+    print('Port:', network.get_port())
