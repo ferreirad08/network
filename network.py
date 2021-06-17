@@ -1,5 +1,5 @@
 import platform
-import os
+from os import system, remove
 
 
 class Network:
