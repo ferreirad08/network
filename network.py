@@ -1,5 +1,5 @@
-import platform
 from os import system, remove
+import platform
 
 
 class Network:
