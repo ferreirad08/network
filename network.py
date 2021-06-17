@@ -15,7 +15,7 @@ class Network:
         Mede a latência da conexão
         '''
         if self.OS == 'Linux':
-            return os.system(f'ping -c {count} {self.remote_host}')
+            return system(f'ping -c {count} {self.remote_host}')
 
     def is_connected(self) -> bool:
         '''
@@ -31,13 +31,13 @@ class Network:
             return
 
         fname: str = 'tempfile.txt'
-        os.system(f'nmap -oN {fname} -p {min}-{max} {self.remote_host}')
+        system(f'nmap -oN {fname} -p {min}-{max} {self.remote_host}')
 
         with open(fname, 'r') as f:
             lines: list = f.readlines()
             port, *_ = lines[-3].split('/')
 
-        os.remove(fname)
+        remove(fname)
         return port
 
 
