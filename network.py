@@ -6,10 +6,9 @@ class Network:
 
     __version__ = '1.0.0'
 
-    OS = platform.system()
-
     def __init__(self, remote_host: str) -> None:
         self.remote_host: str = remote_host
+        self.OS = platform.system()
 
     def ping(self, count: int=1) -> int:
         '''
